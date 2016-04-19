@@ -1,0 +1,24 @@
+﻿@model List<ajaxprj1.Models.contact>
+@{
+    ViewBag.Title = "RemoveContact";
+}
+<p onclick="closeForm()" class="btn pull-right">X</p>
+<h4>RemoveContact</h4>
+
+@using (Ajax.BeginForm("removeContact_post", "contact", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "closeForm",
+    
+}))
+{
+    <table>
+        <tr><td>Name</td> <td>Address</td> <td>Delete</td> </tr>
+        @for (int i = 0; i < Model.Count; i++ )
+        {
+            <tr>@Html.HiddenFor(x=> Model[i].contactId) <td>@Model[i].fName @Html.HiddenFor(x=> Model[i].fName)</td> <td>@Model[i].address @Html.HiddenFor(x => Model[i].address)</td> <td>@Html.EditorFor(x => @Model[i].ischecked)</td></tr>
+        }
+    </table>
+    <br>
+    <input type="submit" value="remove contacts" />
+}

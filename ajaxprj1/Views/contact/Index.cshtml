@@ -1,0 +1,66 @@
+﻿@model ajaxprj1.Models.contact
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+<div id="cont_dv">
+    <table style="width:100%;">
+        <tr><td>name</td><td>@Model.fName</td></tr>
+
+        <tr><td>address</td><td>@Model.address</td></tr>
+    
+        <tr><td>phone</td><td>@Model.phone</td></tr>
+    </table> 
+
+    @Ajax.ActionLink("previous", "getnelem",
+                      new { id = @Model.contactId - 1 },
+                      new AjaxOptions
+                      {
+                          HttpMethod = "POST",
+                          UpdateTargetId = "cont_dv",
+                          InsertionMode = InsertionMode.Replace,
+                      }
+                        )
+
+    @Ajax.ActionLink("next", "getnelem",
+                      new { id = @Model.contactId + 1 },
+                      new AjaxOptions
+                      {
+                          HttpMethod = "POST",
+                          UpdateTargetId = "cont_dv",
+                          InsertionMode = InsertionMode.Replace,
+                      }
+                        )
+</div>
+
+
+@Ajax.ActionLink("add contact", "addContact",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "formPopUp", 
+                InsertionMode = InsertionMode.Replace,              
+                OnBegin = "showForm",               
+            }
+)
+<br />
+@Ajax.ActionLink("remove contact","remContact",
+        new AjaxOptions
+        {
+            HttpMethod="POST",
+            UpdateTargetId ="remformPopUp",
+            InsertionMode =InsertionMode.Replace,
+        }
+)
+
+<div id="formPopUp" class="cformPopUp">      
+</div>
+<br />
+<div id="remformPopUp"></div>
+
+    @section scripts{
+        @Scripts.Render("~/Scripts/popup.js")
+        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+    }

@@ -1,0 +1,28 @@
+﻿@model ajaxprj1.Models.contact
+
+<p onclick="closeForm()" class="btn pull-right">X</p>
+<h2>AddContact</h2>
+
+@using (Ajax.BeginForm("addContact_post", "contact", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "closeForm",
+}))
+{
+    <div>
+
+        Name:
+        @Html.TextBoxFor(x => x.fName)
+    </div>
+    <br />
+    <div>
+        Address:
+        @Html.TextBoxFor(x => x.address)
+    </div>
+    <br />
+    <div>
+        Phone:
+        @Html.TextBoxFor(x => x.phone)
+    </div>
+    <input type="submit" value="submit" />
+}
